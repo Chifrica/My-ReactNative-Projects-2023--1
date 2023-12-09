@@ -2,12 +2,16 @@ import * as React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ABUDevHeader from './screens/ABUDevHeader';
-import Profiles from './screens/Profiles'
-import Settings from './screens/Settings';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import Login from './screens/Login';
+import ABUDevHeader from './screens/ABUDevHeader';
+import Profiles from './screens/Profiles';
+import Settings from './screens/Settings';
+import HomeScreen from './screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function LogoTitle() {
   return (
@@ -44,41 +48,76 @@ const styles = StyleSheet.create ({
   }
 })
 
+function MainTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'HomeTab') {
+            iconName = focused ? 'ios-home' : 'ios-home'; // Icon for Home
+          } else if (route.name === 'SettingsTab') {
+            iconName = focused ? 'ios-settings' : 'ios-settings-outline'; // Icon for Settings
+          }
+          else if (route.name === 'ProfileTab') {
+            iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
+          }
+
+          // Return the Ionicons component with the correct icon name
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      
+      <Tab.Screen name="HomeTab" component={HomeScreen} options={{ tabBarLabel: 'Home' }} />
+      <Tab.Screen name="ProfileTab" component={Profiles} options={{ tabBarLabel: 'Profile' }} />
+      <Tab.Screen name="SettingsTab" component={Settings} options={{ tabBarLabel: 'Settings' }} />
+
+    </Tab.Navigator>
+  );
+}
+
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-          initialRouteName = "Welcome"
-          screenOptions = {{
-            headerStyle: { backgroundColor: 'green'},
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold'
-            }
-          }}>
+        initialRouteName="Login"
+        screenOptions={{
+          headerStyle: { backgroundColor: 'green' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }}>
 
         <Stack.Screen
           name="Login"
-          component = {Login}
+          component={Login}
+          options={{
+            title: 'Login',
+            headerTitle: (props) => <LogoTitle {...props} />
+          }}
         />
 
-        <Stack.Screen 
+        <Stack.Screen
+          name="Welcome"
+          component={ABUDevHeader}
           options={{
             title: 'Home',
             headerTitle: (props) => <LogoTitle {...props} />
           }}
-          name="Welcome" 
-          component ={ABUDevHeader} 
         />
 
         <Stack.Screen
-          name = "Profiles"
-          component = {Profiles}
-        />
-
-        <Stack.Screen
-          name = "Settings"
-          component = {Settings}
+          name="MainTabs"
+          component={MainTabs}
+          options={{
+            headerShown: false
+          }}
         />
 
       </Stack.Navigator>

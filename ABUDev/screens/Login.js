@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 
 const Login = ({ navigation }) => {
     const [email, onChangeFirstName] = useState('');
@@ -8,57 +8,59 @@ const Login = ({ navigation }) => {
     return (
         <KeyboardAvoidingView 
             style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
         >
-            <View style={styles.container}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
-                    style={styles.btn}
-                >
-                    <Text style={styles.btnText}>Offline</Text>
-                </TouchableOpacity>
-
-                <Image 
-                    source={require('../imgs/abu-logo-1.png')}
-                    style = {styles.image}
-                />
-                
-                <View style = { styles.loginContainer}>
-                    
-                    <Text style={styles.loginText}>Login</Text>
-
-                    <TextInput 
-                        placeholder="Email" 
-                        value={email} 
-                        onChangeText={onChangeFirstName} 
-                        style={styles.textInput}
-                    />
-
-                    <TextInput 
-                        secureTextEntry 
-                        placeholder="Senha" 
-                        value={password} 
-                        onChangeText={onChangePassword} 
-                        style={styles.textInput}
-                    />
-
+            <ScrollView contentContainerStyle = {{ flexGrow: null}}>
+                <View style={styles.container}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('')}
-                        style={styles.loginButton}
+                        onPress={() => navigation.navigate('MainTabs')}
+                        style={styles.btn}
                     >
-                        <Text style={styles.buttonText}>Login</Text>
+                        <Text style={styles.btnText}>Offline</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.forget}>Forgotten Password?</Text>
-                </View>
+                    <Image 
+                        source={require('../imgs/abu-logo-1.png')}
+                        style = {styles.image}
+                    />
+                    
+                    <View style = { styles.loginContainer}>
+                        
+                        <Text style={styles.loginText}>Login</Text>
 
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
-                    style={styles.signUpButton}
-                >
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
+                        <TextInput 
+                            placeholder="Email" 
+                            value={email} 
+                            onChangeText={onChangeFirstName} 
+                            style={styles.textInput}
+                        />
+
+                        <TextInput 
+                            secureTextEntry 
+                            placeholder="Password" 
+                            value={password} 
+                            onChangeText={onChangePassword} 
+                            style={styles.textInput}
+                        />
+
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('')}
+                            style={styles.loginButton}
+                        >
+                            <Text style={styles.buttonText}>Login</Text>
+                        </TouchableOpacity>
+
+                        <Text style={styles.forget}>Forgotten Password?</Text>
+                    </View>
+
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignUp')}
+                        style={styles.signUpButton}
+                    >
+                        <Text style={styles.buttonText}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </KeyboardAvoidingView>
     )
 }
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 8,
         marginBottom: 20,
+        elevation: 10
     },
 
     image:{
@@ -132,7 +135,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 16,
         marginBottom: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        elevation: 10
     },
 
     buttonText: {
@@ -153,9 +157,9 @@ const styles = StyleSheet.create({
     signUpButton: {
         backgroundColor: '#205922',
         padding: 15,
-        marginTop: 50,
+        marginTop: 20,
         borderRadius: 16,
         alignItems: 'center',
-
+        elevation: 10
     }
 })

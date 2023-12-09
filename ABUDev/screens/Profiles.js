@@ -14,7 +14,7 @@ const Profiles = ({navigation}) => {
                 resizeMode='contain'
                 source={require('../imgs/abu-logo-2.png')}
             >
-            <Text style={styles.title} onPress={() => navigation.navigate('Settings')}>
+            <Text style={styles.title} onPress={() => navigation.navigate('SettingsTab')}>
                 Welcome to my Profile.
             </Text>
             </ImageBackground>
