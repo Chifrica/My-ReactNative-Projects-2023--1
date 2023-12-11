@@ -9,6 +9,7 @@ import ABUDevHeader from './screens/ABUDevHeader';
 import Profiles from './screens/Profiles';
 import Settings from './screens/Settings';
 import HomeScreen from './screens/HomeScreen';
+import Icon from './component/shared/Icon';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -16,11 +17,34 @@ const Tab = createBottomTabNavigator();
 function LogoTitle() {
   return (
     <View style={styles.container}>
+      
       <Image
         source={require('./imgs/abu-logo-2.png')}
         style={styles.image}
       />
       <Text style={styles.headerText}>ABUDev</Text>
+    </View>
+  )
+}
+
+function HomeProfileSettingsTitle({ navigation, route}) {
+  let headerTitle = '';
+
+  if (route.name === 'Home') {
+    headerTitle = 'Home';
+  } else if (route.name === 'Profile') {
+    headerTitle = 'Profile';
+  } else if (route.name === 'Settings') {
+    headerTitle = 'Settings';
+  }
+
+  return (
+    <View style={styles.container}>
+      <Image 
+        source={require('./imgs/abu-logo-2.png')}
+        style = {styles.image}
+      />
+      <Text style={styles.headerText}>{headerTitle}</Text>
     </View>
   )
 }
@@ -55,26 +79,58 @@ function MainTabs() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'HomeTab') {
+          if (route.name === 'Home') {
             iconName = focused ? 'ios-home' : 'ios-home'; // Icon for Home
-          } else if (route.name === 'SettingsTab') {
+          } else if (route.name === 'Settings') {
             iconName = focused ? 'ios-settings' : 'ios-settings-outline'; // Icon for Settings
           }
-          else if (route.name === 'ProfileTab') {
+          else if (route.name === 'Profile') {
             iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
           }
 
           // Return the Ionicons component with the correct icon name
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#205922',
         tabBarInactiveTintColor: 'gray',
+
+        headerStyle: { backgroundColor: '#205922' },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
       })}
     >
-      
-      <Tab.Screen name="HomeTab" component={HomeScreen} options={{ tabBarLabel: 'Home' }} />
-      <Tab.Screen name="ProfileTab" component={Profiles} options={{ tabBarLabel: 'Profile' }} />
-      <Tab.Screen name="SettingsTab" component={Settings} options={{ tabBarLabel: 'Settings' }} />
+
+      <Tab.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={({ route }) => ({ 
+          // tabBarLabel: 'Home' 
+          title: 'Home',
+          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+        })} 
+      />
+
+      <Tab.Screen 
+        name="Profile" 
+        component={Profiles} 
+        options={({ route }) => ({ 
+          // tabBarLabel: 'Profile' 
+          title: 'Profile',
+          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+        })} 
+      />
+
+      <Tab.Screen 
+        name="Settings" 
+        component={Settings}  
+        options={({ route }) => ({ 
+          // tabBarLabel: 'Settings' 
+          title: 'Settings',
+          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+        })}
+      />
 
     </Tab.Navigator>
   );
@@ -87,7 +143,7 @@ export default function App() {
       <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
-          headerStyle: { backgroundColor: 'green' },
+          headerStyle: { backgroundColor: '#205922' },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold'

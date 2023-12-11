@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { 
+    View, 
+    Text, 
+    TextInput, 
+    KeyboardAvoidingView, 
+    Platform, 
+    StyleSheet, 
+    TouchableOpacity, 
+    Image, 
+    ScrollView 
+} from 'react-native';
 
 const Login = ({ navigation }) => {
     const [email, onChangeFirstName] = useState('');
