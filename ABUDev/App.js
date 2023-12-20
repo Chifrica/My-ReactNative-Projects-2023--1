@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Login from './screens/Login';
 import ABUDevHeader from './screens/ABUDevHeader';
-import Profiles from './screens/Profiles';
+import PDF from './screens/PDF';
 import Settings from './screens/Settings';
 import HomeScreen from './screens/HomeScreen';
 import Icon from './component/shared/Icon';
@@ -27,13 +27,13 @@ function LogoTitle() {
   )
 }
 
-function HomeProfileSettingsTitle({ navigation, route}) {
+function HomePDFSettingsTitle({ navigation, route}) {
   let headerTitle = '';
 
   if (route.name === 'Home') {
     headerTitle = 'Home';
-  } else if (route.name === 'Profile') {
-    headerTitle = 'Profile';
+  } else if (route.name === 'PDF') {
+    headerTitle = 'PDF';
   } else if (route.name === 'Settings') {
     headerTitle = 'Settings';
   }
@@ -84,7 +84,7 @@ function MainTabs() {
           } else if (route.name === 'Settings') {
             iconName = focused ? 'ios-settings' : 'ios-settings-outline'; // Icon for Settings
           }
-          else if (route.name === 'Profile') {
+          else if (route.name === 'PDF') {
             iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
           }
 
@@ -108,17 +108,18 @@ function MainTabs() {
         options={({ route }) => ({ 
           // tabBarLabel: 'Home' 
           title: 'Home',
-          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+          headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />,
+          headerShown: false
         })} 
       />
 
       <Tab.Screen 
-        name="Profile" 
-        component={Profiles} 
+        name="PDF" 
+        component={PDF} 
         options={({ route }) => ({ 
-          // tabBarLabel: 'Profile' 
-          title: 'Profile',
-          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+          // tabBarLabel: 'PDF' 
+          title: 'PDF',
+          headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />
         })} 
       />
 
@@ -128,7 +129,7 @@ function MainTabs() {
         options={({ route }) => ({ 
           // tabBarLabel: 'Settings' 
           title: 'Settings',
-          headerTitle: (props) => <HomeProfileSettingsTitle {...props} route = {route} />
+          headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />
         })}
       />
 

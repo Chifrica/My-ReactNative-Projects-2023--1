@@ -15,9 +15,9 @@ const ABUDevHeader = ({navigation}) => {
             >
                 
                 <View style = { styles.container}>
-                    <Pressable onPress={() => navigation.navigate('Profiles')}>
+                    <Pressable onPress={() => navigation.navigate('PDF')}>
                         <Text>
-                            Profile
+                            PDF
                         </Text>
                     </Pressable>
 

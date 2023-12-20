@@ -8,12 +8,39 @@ import {
     StyleSheet, 
     TouchableOpacity, 
     Image, 
-    ScrollView 
+    ScrollView,
+    Alert
 } from 'react-native';
+
+const MAX_ATTEMPTS = 5;
+const CORRECT_EMAIL = 'admin';
+const CORRECT_PASSWORD = 'admin';
 
 const Login = ({ navigation }) => {
     const [email, onChangeFirstName] = useState('');
     const [password, onChangePassword] = useState('');
+    const [attempts, setAttempts] = useState(0);
+
+    // HandleLogin function
+    const handleLogin = () => {
+        if (email === CORRECT_EMAIL && password === CORRECT_PASSWORD) {
+            navigation.navigate('MainTabs');
+        } else {
+            setAttempts (attempts + 1);
+            const remaingingAttempts = MAX_ATTEMPTS - attempts - 1;
+            if (remaingingAttempts === 0) {
+                alert.alert(
+                    'Login Failed', 
+                    'Maximum login attempts reached. Please try again later.'
+                );
+            } else {
+                Alert.alert(
+                    'Login Failed',
+                    `Incorrect email or password. You have ${remaingingAttempts} attempts remaining.`
+                );
+            }
+        }
+    }
     
     return (
         <KeyboardAvoidingView 
@@ -23,7 +50,7 @@ const Login = ({ navigation }) => {
             <ScrollView contentContainerStyle = {{ flexGrow: null}}>
                 <View style={styles.container}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('MainTabs')}
+                        onPress={() => navigation.navigate('PDF')}
                         style={styles.btn}
                     >
                         <Text style={styles.btnText}>Offline</Text>
@@ -38,6 +65,7 @@ const Login = ({ navigation }) => {
                         
                         <Text style={styles.loginText}>Login</Text>
 
+                        {/* Email TextInput */}
                         <TextInput 
                             placeholder="Email" 
                             value={email} 
@@ -45,6 +73,7 @@ const Login = ({ navigation }) => {
                             style={styles.textInput}
                         />
 
+                        {/* Password TextInput */}
                         <TextInput 
                             secureTextEntry 
                             placeholder="Password" 
@@ -53,8 +82,9 @@ const Login = ({ navigation }) => {
                             style={styles.textInput}
                         />
 
+                        {/* Login Button */}
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('')}
+                            onPress={handleLogin}
                             style={styles.loginButton}
                         >
                             <Text style={styles.buttonText}>Login</Text>
@@ -63,6 +93,7 @@ const Login = ({ navigation }) => {
                         <Text style={styles.forget}>Forgotten Password?</Text>
                     </View>
 
+                    {/* SignUp Button*/}
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignUp')}
                         style={styles.signUpButton}

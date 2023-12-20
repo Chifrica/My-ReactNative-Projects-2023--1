@@ -1,38 +1,81 @@
-import * as React from 'react'
-import {View, Text, KeyboardAvoidingView, ScrollView, Platform, StyleSheet, TextInput, Image} from 'react-native';
+import React, { useState } from 'react';
+import { 
+    View, 
+    Text, 
+    KeyboardAvoidingView, 
+    ScrollView, 
+    Platform, 
+    StyleSheet, 
+    TextInput, 
+    Image,
+} from 'react-native';
+import MapView from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 
 const HomeScreen = () => {
+    const GOOGLE_MAP_API = "AIzaSyBONkL-hFoFvqhfCurlGBtkxxskoBhqftk"
+
+
+    // State for the start and end points of our journey.
+    
+    const pickupCords = {
+        latitude: 11.085541, 
+        longitude: 7.719945,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    }
+
+    const destinationCords = {
+        latitude: 11.0666664, 
+        longitude: 7.6999972,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    }
+
     return (
         <KeyboardAvoidingView
             style = { styles.container}
             behavior  = { Platform.OS === 'ios' ? 'padding' : null }
         >
             <View styles = { styles.container }>
-                <Text style={styles.txt}>
+                {/* <Text style={styles.txt}>
                     What are you looking at ABU? Search here!
-                </Text>
+                </Text> */}
 
                 {/*Search Input and Notifications*/}
-                <View>
+                <View style={styles.containerSearchingNotification}>
                     <TextInput 
                         placeholder='Search'
                         value=''
-                        style={styles.textInput}
+                        style={styles.searchContainer}
                     />
 
-                    
+                    <Image 
+                        source={require('../imgs/notification-icon.png')}
+                        style={styles.notification_icon}
+                    />
                 </View>        
             </View>
 
             <ScrollView contentContainerStyle = {{flexGrow: null}}>
-                {/*Loctaion image*/}
-                <Text style={styles.txt}>
-                    ABU Seren Image
-                </Text>
-                <Image 
-                    source={require('../imgs/Rectangle-7.png')} 
-                    style={styles.imageLocator_large}
-                />
+
+                <MapView
+                    mapType={Platform.OS == "android" ? "non" : "standard"}
+                    style = {styles.map}
+                    initialRegion={
+                        pickupCords
+                    }
+                >
+                    <MapViewDirections
+                        origin={pickupCords}
+                        destination={destinationCords}
+                        apikey={GOOGLE_MAP_API}
+                        strokeWidth={3}
+                        strokeColor='hotPink'
+                    />
+
+                </MapView>
+
                 <Text style={{ color: '#205922', fontSize: 30, fontWeight: 'bold', paddingBottom:20, alignSelf: 'center' }}>
                     Venues Near Me
                 </Text>
@@ -74,7 +117,7 @@ const HomeScreen = () => {
                         style={styles.location_icons}
                     />
 
-<Image 
+                    <Image 
                         source={require('../imgs/Star-rate.png')}
                         style = {styles.star_rate}
                     />
@@ -113,7 +156,7 @@ const HomeScreen = () => {
                         style={styles.location_icons}
                     />
 
-<Image 
+                    <Image 
                         source={require('../imgs/Star-rate.png')}
                         style = {styles.star_rate}
                     />
@@ -144,17 +187,18 @@ const HomeScreen = () => {
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        padding: 20,
+        padding: 10,
     },
 
-    txt: {
-        fontSize: 20,
-        fontWeight: '100',
-        paddingTop: 15,
-        paddingBottom: 15
+    containerSearchingNotification: {
+        flexDirection: 'row',
+        // alignItems: "center",
+        // justifyContent: "space-between",
+        paddingTop: 20,
+        paddingLeft: 10
     },
 
-    textInput: {
+    searchContainer: {
         height: 40,
         width: 271,
         marginVertical: 10,
@@ -162,14 +206,22 @@ const styles = StyleSheet.create ({
         borderColor: '#205922',
         borderRadius: 32,
         paddingHorizontal: 10,
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
 
-    imageLocator_large: {
-        height: 300,
+    notification_icon: {
+        height: 30,
+        width: 30,
+        resizeMode: 'contain',
+        marginLeft: 10,
+        marginTop: 15
+    },
+
+    map: {
+        height: 600,
         width: 400,
         borderRadius: 30,
-        position: 'relative',
-        alignSelf: 'center',
         marginBottom: 20
     },
 
