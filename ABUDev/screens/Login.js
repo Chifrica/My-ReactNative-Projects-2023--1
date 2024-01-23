@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
             setAttempts (attempts + 1);
             const remaingingAttempts = MAX_ATTEMPTS - attempts - 1;
             if (remaingingAttempts === 0) {
-                alert.alert(
+                Alert.alert(
                     'Login Failed', 
                     'Maximum login attempts reached. Please try again later.'
                 );

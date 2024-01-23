@@ -10,10 +10,12 @@ import PDF from './screens/PDF';
 import Settings from './screens/Settings';
 import HomeScreen from './screens/HomeScreen';
 import Icon from './component/shared/Icon';
+import { AppRegistry } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+// AppRegistry.registerComponent(ABUDev, () => App);
 function LogoTitle() {
   return (
     <View style={styles.container}>
@@ -113,7 +115,7 @@ function MainTabs() {
         })} 
       />
 
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="PDF" 
         component={PDF} 
         options={({ route }) => ({ 
@@ -121,7 +123,7 @@ function MainTabs() {
           title: 'PDF',
           headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />
         })} 
-      />
+      /> */}
 
       <Tab.Screen 
         name="Settings" 

@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/splash-abudev-1.jpg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.ABUDev"
     },
     "web": {
       "favicon": "./assets/splash-abudev-1.jpg"
