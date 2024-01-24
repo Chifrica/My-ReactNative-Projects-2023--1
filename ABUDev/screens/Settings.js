@@ -40,11 +40,11 @@ const Settings = () => {
                 </View> 
             </View>
 
-            <TouchableOpacity
-                onPress={() => NavigationPreloadManager.navigate("")}
+            {/* <TouchableOpacity
+                onPress={() => navigation.navigate("")}
             >
                 <Text>About ABU</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }

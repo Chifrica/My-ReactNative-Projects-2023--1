@@ -19,15 +19,15 @@ const HomeScreen = () => {
     // State for the start and end points of our journey.
     
     const pickupCords = {
-        latitude: 11.085541, 
-        longitude: 7.719945,
+        latitude: 11.0666664, 
+        longitude: 7.6999972,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     }
 
     const destinationCords = {
-        latitude: 11.0666664, 
-        longitude: 7.6999972,
+        latitude: 7.6999972, 
+        longitude: 7.415999,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     }

@@ -8,6 +8,7 @@ import Login from './screens/Login';
 import ABUDevHeader from './screens/ABUDevHeader';
 import PDF from './screens/PDF';
 import Settings from './screens/Settings';
+import ABUScreen from './screens/ABU/ABUScreen';
 import HomeScreen from './screens/HomeScreen';
 import Icon from './component/shared/Icon';
 import { AppRegistry } from 'react-native';
@@ -29,7 +30,7 @@ function LogoTitle() {
   )
 }
 
-function HomePDFSettingsTitle({ navigation, route}) {
+function HomePDFSettingsTitle({ navigation, route}){
   let headerTitle = '';
 
   if (route.name === 'Home') {
@@ -38,6 +39,8 @@ function HomePDFSettingsTitle({ navigation, route}) {
     headerTitle = 'PDF';
   } else if (route.name === 'Settings') {
     headerTitle = 'Settings';
+  } else if (route.name === 'ABUScreen') {
+    headerTitle = 'ABUScreen';
   }
 
   return (
@@ -89,6 +92,9 @@ function MainTabs() {
           else if (route.name === 'PDF') {
             iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
           }
+          else if (route.name === 'ABUScreen') {
+            iconName = focused ? 'ios-account' : 'ios-account';
+          }
 
           // Return the Ionicons component with the correct icon name
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -110,6 +116,17 @@ function MainTabs() {
         options={({ route }) => ({ 
           // tabBarLabel: 'Home' 
           title: 'Home',
+          headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />,
+          headerShown: false
+        })} 
+      />
+
+      <Tab.Screen 
+        name="ABUScreen" 
+        component={ABUScreen} 
+        options={({ route }) => ({ 
+          // tabBarLabel: 'Home' 
+          title: 'ABU',
           headerTitle: (props) => <HomePDFSettingsTitle {...props} route = {route} />,
           headerShown: false
         })} 
